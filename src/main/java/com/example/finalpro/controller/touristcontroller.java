@@ -22,6 +22,7 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/tourist")
 public class touristcontroller {
+    //读取配置文件
     @Autowired
     private Environment env;
     @Resource
