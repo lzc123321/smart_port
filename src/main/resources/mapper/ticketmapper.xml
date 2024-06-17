@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.ticketmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.ticket">
+    </resultMap>
+    <insert id="addNewTicket" parameterType="com.example.finalpro.entity.ticket">
+        insert into ticket(flightid,tickettype,price,amount) values(#{flightid},#{tickettype},#{price},#{amount})
+    </insert>
+
+    <select id="getTicketByID" resultType="com.example.finalpro.entity.ticket">
+        select * from ticket where ticketid = #{ticketid}
+    </select>
+
+    <select id="getTicketByCombine" resultType="com.example.finalpro.entity.ticket">
+        select * from ticket where flightid = #{flightid} and tickettype = #{tickettype} and ticketid != #{exceptid}
+    </select>
+
+    <update id="updateOldTicket" parameterType="com.example.finalpro.entity.ticket">
+        update ticket set tickettype = #{tickettype},price = #{price},amount = #{amount} where ticketid = #{ticketid}
+    </update>
+
+    <delete id="removeOldTicket">
+        delete from ticket where ticketid = #{ticketid}
+    </delete>
+
+    <select id="listTicketByFlightid" resultType="com.example.finalpro.entity.ticket">
+        select * from ticket where flightid = #{flightid}
+    </select>
+
+    <select id="listEticketByTouristid" resultType="com.example.finalpro.entity.bowl.eticket">
+        select pr.orderid, c.name, f.name, f.takeofflocation, f.landinglocation, f.departuretime, f.landingtime, f.departuregate, f.terminal, ps.realname, pr.seatinfo, t.tickettype from purchaserecord pr, ticket t, airlinecompany c, flight f, person ps where pr.personid = ps.personid and pr.ticketid = t.ticketid and t.flightid = f.flightid and f.companyid = c.companyid and ps.touristid = #{touristid}
+    </select>
+</mapper>

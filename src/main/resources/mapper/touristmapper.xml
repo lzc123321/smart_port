@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.touristmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.tourist">
+    </resultMap>
+    <insert id="logupNewTourist" parameterType="com.example.finalpro.entity.tourist">
+        insert into tourist(email,passwords,salt,vip) values(#{email},sha1(#{passwords}),#{salt},#{vip})
+    </insert>
+
+    <update id="updatePassword">
+        update tourist set passwords = sha1(#{newpasswords}) where touristid = #{touristid}
+    </update>
+
+    <update id="updateEmail">
+        update tourist set email = #{newemail} where touristid = #{touristid}
+    </update>
+
+    <select id="getTouristByEmail" resultType="com.example.finalpro.entity.tourist">
+        select * from tourist where email = #{email}
+    </select>
+
+    <select id="getTouristByID" resultType="com.example.finalpro.entity.tourist">
+        select * from tourist where touristid = #{touristid}
+    </select>
+</mapper>

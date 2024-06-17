@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.purchaserecordmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.purchaserecord">
+    </resultMap>
+    <insert id="addNewRecord" parameterType="com.example.finalpro.entity.purchaserecord">
+        insert into purchaserecord(personid,ticketid,purchasetime,seatinfo) values(#{personid},#{ticketid},#{purchasetime},#{seatinfo})
+    </insert>
+
+    <delete id="removeOldRecord">
+        delete from purchaserecord where orderid = #{orderid}
+    </delete>
+
+    <update id="selectSeatForOrderid">
+        update purchaserecord set seatinfo = #{seatinfo} where orderid = #{orderid}
+    </update>
+
+    <select id="getRecordByID" resultType="com.example.finalpro.entity.purchaserecord">
+        select * from purchaserecord where orderid = #{orderid}
+    </select>
+
+    <select id="getRecordByCombine" resultType="com.example.finalpro.entity.purchaserecord">
+        select * from purchaserecord where ticketid = #{ticketid} and seatinfo = #{seatinfo}
+    </select>
+
+    <select id="getRecordByTicketid" resultType="com.example.finalpro.entity.purchaserecord">
+        select * from purchaserecord where ticketid = #{ticketid}
+    </select>
+
+    <select id="listAllRecord" resultType="com.example.finalpro.entity.purchaserecord">
+        select * from purchaserecord
+    </select>
+
+    <select id="listTodayRecord" resultType="com.example.finalpro.entity.purchaserecord">
+        select pr.orderid,pr.personid,pr.ticketid,pr.purchasetime,pr.seatinfo from purchaserecord pr,ticket tk,flight f where pr.ticketid = tk.ticketid and tk.flightid = f.flightid and f.departuretime like #{today}
+    </select>
+
+    <select id="getCountByTicketid" resultType="Integer">
+        select count(*) from purchaserecord where ticketid = #{ticketid}
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.repairrecordmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.repairrecord">
+    </resultMap>
+    <insert id="addNewRepairrecord" parameterType="com.example.finalpro.entity.repairrecord">
+        insert into repairrecord(deviceinfo,location,approved,devicename,devicepicture) values(#{deviceinfo},#{location},#{approved},#{devicename},#{devicepicture})
+    </insert>
+
+    <select id="getRepairrecordByID" resultType="com.example.finalpro.entity.repairrecord">
+        select * from repairrecord where recordid = #{recordid}
+    </select>
+
+    <update id="examineRepairrecord" parameterType="com.example.finalpro.entity.repairrecord">
+        update repairrecord set approved = #{approved} where recordid = #{recordid}
+    </update>
+
+    <delete id="removeOldRepairrecord">
+        delete from repairrecord where recordid = #{recordid}
+    </delete>
+
+    <select id="listAllRecord" resultType="com.example.finalpro.entity.repairrecord">
+        select * from repairrecord
+    </select>
+</mapper>

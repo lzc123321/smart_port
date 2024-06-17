@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.tokenmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.token">
+    </resultMap>
+    <insert id="loginNewToken_TOURIST" parameterType="com.example.finalpro.entity.token">
+        insert into touristtoken(id,token) values(#{id},#{token})
+    </insert>
+    <insert id="loginNewToken_MERCHANT" parameterType="com.example.finalpro.entity.token">
+        insert into merchanttoken(id,token) values(#{id},#{token})
+    </insert>
+    <insert id="loginNewToken_STAFF" parameterType="com.example.finalpro.entity.token">
+        insert into stafftoken(id,token) values(#{id},#{token})
+    </insert>
+    <insert id="loginNewToken_COMPANY" parameterType="com.example.finalpro.entity.token">
+        insert into airlinecompanytoken(id,token) values(#{id},#{token})
+    </insert>
+
+    <update id="updateOldToken_TOURIST" parameterType="com.example.finalpro.entity.token">
+        update touristtoken set token = #{token} where id = #{id}
+    </update>
+    <update id="updateOldToken_MERCHANT" parameterType="com.example.finalpro.entity.token">
+        update merchanttoken set token = #{token} where id = #{id}
+    </update>
+    <update id="updateOldToken_STAFF" parameterType="com.example.finalpro.entity.token">
+        update stafftoken set token = #{token} where id = #{id}
+    </update>
+    <update id="updateOldToken_COMPANY" parameterType="com.example.finalpro.entity.token">
+        update airlinecompanytoken set token = #{token} where id = #{id}
+    </update>
+
+
+    <select id="getTokenByID_TOURIST" resultType="com.example.finalpro.entity.token">
+        select * from touristtoken where id = #{id}
+    </select>
+    <select id="getTokenByID_MERCHANT" resultType="com.example.finalpro.entity.token">
+        select * from merchanttoken where id = #{id}
+    </select>
+    <select id="getTokenByID_STAFF" resultType="com.example.finalpro.entity.token">
+        select * from stafftoken where id = #{id}
+    </select>
+    <select id="getTokenByID_COMPANY" resultType="com.example.finalpro.entity.token">
+        select * from airlinecompanytoken where id = #{id}
+    </select>
+
+    <select id="getTokenByToken_TOURIST" resultType="com.example.finalpro.entity.token">
+        select * from touristtoken where token = #{token}
+    </select>
+    <select id="getTokenByToken_MERCHANT" resultType="com.example.finalpro.entity.token">
+        select * from merchanttoken where token = #{token}
+    </select>
+    <select id="getTokenByToken_STAFF" resultType="com.example.finalpro.entity.token">
+        select * from stafftoken where token = #{token}
+    </select>
+    <select id="getTokenByToken_COMPANY" resultType="com.example.finalpro.entity.token">
+        select * from airlinecompanytoken where token = #{token}
+    </select>
+
+    <delete id="logoutOldToken_TOURIST">
+        delete from touristtoken where token = #{token}
+    </delete>
+    <delete id="logoutOldToken_MERCHANT">
+        delete from merchanttoken where token = #{token}
+    </delete>
+    <delete id="logoutOldToken_STAFF">
+        delete from stafftoken where token = #{token}
+    </delete>
+    <delete id="logoutOldToken_COMPANY">
+        delete from airlinecompanytoken where token = #{token}
+    </delete>
+</mapper>

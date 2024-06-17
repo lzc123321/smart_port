@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.personmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.person">
+    </resultMap>
+    <insert id="addNewPerson" parameterType="com.example.finalpro.entity.person">
+        insert into person(touristid,realname,idnumber,email) values(#{touristid},#{realname},#{idnumber},#{email})
+    </insert>
+
+    <update id="updateOldPerson" parameterType="com.example.finalpro.entity.person">
+        update person set realname = #{realname},idnumber = #{idnumber},email = #{email} where personid = #{personid}
+    </update>
+
+    <select id="getPersonByID" resultType="com.example.finalpro.entity.person">
+        select * from person where personid = #{personid}
+    </select>
+
+    <select id="getPersonByCombine" resultType="com.example.finalpro.entity.person">
+        select * from person where touristid = #{touristid} and idnumber = #{idnumber} and personid != #{exceptid}
+    </select>
+
+    <delete id="removeOldPerson">
+        delete from person where personid = #{personid}
+    </delete>
+
+    <select id="listPersonByTouristid" resultType="com.example.finalpro.entity.person">
+        select * from person where touristid = #{touristid}
+    </select>
+</mapper>

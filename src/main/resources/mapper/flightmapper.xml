@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.flightmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.flight">
+    </resultMap>
+    <insert id="addNewFlight" parameterType="com.example.finalpro.entity.flight">
+        insert into flight(name,companyid,takeofflocation,landinglocation,departuretime,landingtime,departuregate,terminal) values(#{name},#{companyid},#{takeofflocation},#{landinglocation},#{departuretime},#{landingtime},#{departuregate},#{terminal})
+    </insert>
+
+    <select id="getFlightByID" resultType="com.example.finalpro.entity.flight">
+        select * from flight where flightid = #{flightid}
+    </select>
+
+    <select id="getFlightByCombine" resultType="com.example.finalpro.entity.flight">
+        select * from flight where name = #{name} and companyid = #{companyid} and departuretime = #{departuretime} and flightid != #{exceptid}
+    </select>
+
+    <update id="updateOldFlight" parameterType="com.example.finalpro.entity.flight">
+        update flight set name = #{name},takeofflocation = #{takeofflocation},landinglocation = #{landinglocation},departuretime = #{departuretime},landingtime = #{landingtime},departuregate = #{departuregate},terminal = #{terminal} where flightid = #{flightid}
+    </update>
+
+    <delete id="removeOldFlight">
+        delete from flight where flightid = #{flightid}
+    </delete>
+
+    <select id="listFlightByCompanyid" resultType="com.example.finalpro.entity.flight">
+        select * from flight where companyid = #{companyid}
+    </select>
+
+    <select id="listTodayFlight" resultType="com.example.finalpro.entity.flight">
+        select * from flight where departuretime like #{today}
+    </select>
+
+    <select id="listFlightByCombine" resultType="com.example.finalpro.entity.flight">
+        select * from flight where takeofflocation = #{takeofflocation} and landinglocation = #{landinglocation} and departuretime like #{date}
+    </select>
+</mapper>

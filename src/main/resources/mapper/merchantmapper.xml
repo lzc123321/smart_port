@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.merchantmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.merchant">
+    </resultMap>
+    <insert id="logupNewMerchant" parameterType="com.example.finalpro.entity.merchant">
+        insert into merchant(realname,passwords,salt,shopname,email,idnumber) values(#{realname},#{passwords},#{salt},#{shopname},#{email},#{idnumber})
+    </insert>
+
+    <select id="getMerchantByID" resultType="com.example.finalpro.entity.merchant">
+        select * from merchant where merchantid = #{merchantid}
+    </select>
+
+    <select id="getMerchantByEmail" resultType="com.example.finalpro.entity.merchant">
+        select * from merchant where email = #{email} and merchantid != #{exceptid}
+    </select>
+
+    <select id="getMerchantByIdnumber" resultType="com.example.finalpro.entity.merchant">
+        select * from merchant where idnumber = #{idnumber} and merchantid != #{exceptid}
+    </select>
+
+    <select id="listAllMerchant" resultType="com.example.finalpro.entity.merchant">
+        select * from merchant
+    </select>
+
+    <update id="updateOldMerchant" parameterType="com.example.finalpro.entity.merchant">
+        update merchant set realname = #{realname},idnumber = #{idnumber},shopname = #{shopname},email = #{email} where merchantid = #{merchantid}
+    </update>
+
+    <update id="updatePassword">
+        update merchant set passwords = sha1(#{passwords}) where merchantid = #{merchantid}
+    </update>
+
+    <delete id="removeOldMerchant">
+        delete from merchant where merchantid = #{merchantid}
+    </delete>
+</mapper>

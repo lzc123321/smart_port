@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.companymapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.airlinecompany">
+    </resultMap>
+    <insert id="logupNewCompany" parameterType="com.example.finalpro.entity.airlinecompany">
+        insert into airlinecompany(email,name,passwords,salt) values(#{email},#{name},sha1(#{passwords}),#{salt})
+    </insert>
+
+    <update id="updatePassword">
+        update airlinecompany set passwords = sha1(#{newpasswords}) where companyid = #{companyid}
+    </update>
+
+    <update id="updateOldCompany" parameterType="com.example.finalpro.entity.airlinecompany">
+        update airlinecompany set name = #{name},email = #{email} where companyid = #{companyid}
+    </update>
+
+    <select id="getCompanyByEmail" resultType="com.example.finalpro.entity.airlinecompany">
+        select * from airlinecompany where email = #{email} and companyid != #{exceptid}
+    </select>
+
+    <select id="getCompanyByID" resultType="com.example.finalpro.entity.airlinecompany">
+        select * from airlinecompany where companyid = #{companyid}
+    </select>
+</mapper>

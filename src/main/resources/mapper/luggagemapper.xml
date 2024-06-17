@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.luggagemapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.luggage">
+    </resultMap>
+    <insert id="addNewLuggage" parameterType="com.example.finalpro.entity.luggage">
+        insert into luggage(personid,ticketid,state,location) values(#{personid},#{ticketid},#{state},#{location})
+    </insert>
+
+    <update id="updateOldLuggage">
+        update luggage set state = #{state},location = #{location} where luggageid = #{luggageid}
+    </update>
+
+    <select id="getLuggageByID" resultType="com.example.finalpro.entity.luggage">
+        select * from luggage where luggageid = #{luggageid}
+    </select>
+
+    <select id="getLuggageByCombine" resultType="com.example.finalpro.entity.luggage">
+        select * from luggage where personid = #{personid} and ticketid = #{ticketid}
+    </select>
+
+    <delete id="removeOldLuggage">
+        delete from luggage where luggageid = #{luggageid}
+    </delete>
+</mapper>

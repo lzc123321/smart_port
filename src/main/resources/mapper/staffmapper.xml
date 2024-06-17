@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.finalpro.mapper.staffmapper">
+    <resultMap id="BaseResultMap" type="com.example.finalpro.entity.staff">
+    </resultMap>
+    <insert id="logupNewStaff" parameterType="com.example.finalpro.entity.staff">
+        insert into staff(realname,positionpost,email,passwords,salt,idnumber) values(#{realname},#{positionpost},#{email},sha1(#{passwords}),#{salt},#{idnumber})
+    </insert>
+
+    <update id="updateOldStaff" parameterType="com.example.finalpro.entity.staff">
+        update staff set realname = #{realname},positionpost = #{positionpost},idnumber = #{idnumber},email = #{email} where staffid = #{staffid}
+    </update>
+
+    <update id="updatePassword">
+        update staff set passwords = sha1(#{passwords}) where staffid = #{staffid}
+    </update>
+
+    <select id="getStaffByEmail" resultType="com.example.finalpro.entity.staff">
+        select * from staff where email = #{email} and staffid != #{exceptid}
+    </select>
+
+    <select id="getStaffByID" resultType="com.example.finalpro.entity.staff">
+        select * from staff where staffid = #{staffid}
+    </select>
+
+    <select id="getStaffByIdnumber" resultType="com.example.finalpro.entity.staff">
+        select * from staff where idnumber = #{idnumber} and staffid != #{exceptid}
+    </select>
+
+    <delete id="removeOldStaff">
+        delete from staff where staffid = #{staffid}
+    </delete>
+</mapper>
